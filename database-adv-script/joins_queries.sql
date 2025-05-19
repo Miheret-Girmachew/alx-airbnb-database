@@ -26,7 +26,9 @@ FROM
 LEFT JOIN
     Review r ON p.property_id = r.property_id
 LEFT JOIN
-    "User" u ON r.user_id = u.user_id;
+    "User" u ON r.user_id = u.user_id
+ORDER BY
+    p.property_id ASC, r.review_id ASC;
 
 SELECT
     u.user_id,
