@@ -1,3 +1,4 @@
+EXPLAIN
 SELECT
     'Initial Query' AS query_type,
     b.booking_id,
@@ -29,10 +30,16 @@ INNER JOIN
     "User" h_user ON prop.host_id = h_user.user_id
 LEFT JOIN
     Payment pay ON b.booking_id = pay.booking_id
+WHERE
+    prop.location LIKE '%Anytown%'
+    AND b.start_date >= '2024-01-01'
+    AND g_user.email LIKE 'john.%@example.com'
+    AND b.status = 'confirmed'
 ORDER BY
     b.created_at DESC
-LIMIT 100;
+LIMIT 10;
 
+EXPLAIN
 SELECT
     'Refactored Query' AS query_type,
     b.booking_id,
@@ -64,6 +71,11 @@ INNER JOIN
     "User" h_user ON prop.host_id = h_user.user_id
 LEFT JOIN
     Payment pay ON b.booking_id = pay.booking_id
+WHERE
+    prop.location LIKE '%Anytown%'
+    AND b.start_date >= '2024-01-01'
+    AND g_user.email LIKE 'john.%@example.com'
+    AND b.status = 'confirmed'
 ORDER BY
     b.created_at DESC
-LIMIT 100;
+LIMIT 10;
