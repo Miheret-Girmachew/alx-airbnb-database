@@ -29,8 +29,9 @@ SELECT
     pbc.property_id,
     pbc.property_name,
     pbc.total_bookings_received,
-    RANK() OVER (ORDER BY pbc.total_bookings_received DESC) AS property_rank
+    RANK() OVER (ORDER BY pbc.total_bookings_received DESC) AS property_true_rank,
+    ROW_NUMBER() OVER (ORDER BY pbc.total_bookings_received DESC, pbc.property_name ASC) AS property_row_sequence_number
 FROM
     PropertyBookingCounts pbc
 ORDER BY
-    property_rank ASC, pbc.property_name ASC;
+    property_true_rank ASC, pbc.property_name ASC;
